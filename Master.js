@@ -8,6 +8,22 @@ export default class Master extends Component {
         this.state = { isLoading: true }
     }
 
+    componentDidMount() {
+        return fetch('https://www.reddit.com/r/aww.json')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                let posts = responseJson.data.children.slice(1);
+
+                this.setState({
+                    isLoading: false,
+                    posts
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     render() {
         return (
         <View>
