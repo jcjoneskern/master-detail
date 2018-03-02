@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ActivityIndicator, FlatList } from 'react-native';
 
 export default class Master extends Component {
     constructor(props) {
@@ -12,11 +12,10 @@ export default class Master extends Component {
         return fetch('https://www.reddit.com/r/aww.json')
             .then((response) => response.json())
             .then((responseJson) => {
-                let posts = responseJson.data.children.slice(1);
 
                 this.setState({
                     isLoading: false,
-                    posts
+                    posts: responseJson.data.children.slice(1)
                 });
             })
             .catch((error) => {
@@ -25,10 +24,22 @@ export default class Master extends Component {
     }
 
     render() {
+
+        if (this.state.isLoading) {
+            return (
+                <View>
+                    <ActivityIndicator />
+                </View>
+            );
+        }
         return (
-        <View>
-            <Text>Master</Text>
-        </View>
+            <View>
+                <FlatList
+                    data={this.state.posts}
+                    renderItem={({ item }) => <Text>{item.data.title}</Text>}
+                    keyExtractor={(post, index) => index}
+                />
+            </View>
         );
     }
 }
