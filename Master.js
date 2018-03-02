@@ -42,10 +42,10 @@ export default class Master extends Component {
             <View>
                 <FlatList
                     data={this.state.posts}
-                    renderItem={({ item }) => <Text style={styles.listItem} onPress={() => navigate('Detail', { id: item.data.id, img: item.data.thumbnail, title: item.data.title })}>
-                        <Image source={{ uri: item.data.thumbnail }} style={styles.imgStyle} />
-                        {item.data.title}
-                    </Text>}
+                    renderItem={({ item }) => 
+                        <Text style={styles.listItem} onPress={() => navigate('Detail', { id: item.data.id, img: item.data.thumbnail, title: item.data.title })}>
+                            {item.data.title}
+                        </Text>}
                     keyExtractor={(post, index) => index}
                 />
             </View>
@@ -61,9 +61,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    imgStyle: {
-        height: 60,
-        width: 60
     }
 });
