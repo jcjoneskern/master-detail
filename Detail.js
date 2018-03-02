@@ -12,7 +12,7 @@ export default class Master extends Component {
         const { params } = navigation.state;
 
         return {
-            title: 'Comments'
+            title: `Comments for ${params.title}`
         }
     };
 
@@ -46,34 +46,44 @@ export default class Master extends Component {
         }
         return (
 
-            <View>
-                <Image 
-                    source={{uri: params.img}}
-                    style={styles.imgStyle} />
+            <View style={styles.container}>
+                <View style={styles.imgStyle}>
+                    <Image 
+                        source={{uri: params.img}}
+                        style={{ height: 140, width: 140 }}
+                        resizeMode='contain' />
+                </View>
 
-                <FlatList
-                    data={this.state.comments}
-                    renderItem={({ item }) => <Text style={styles.listItem}><Text style={styles.author}>{item.data.author}:</Text> {item.data.body}</Text>}
-                    keyExtractor={(post, index) => index}
-                />
+                <View style={styles.list}>
+                    <FlatList
+                        data={this.state.comments}
+                        renderItem={({ item }) => <Text style={styles.listItem}><Text style={styles.author}>{item.data.author}:</Text> {item.data.body}</Text>}
+                        keyExtractor={(post, index) => index}
+                    />
+                </View>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    list : {
+        flex: 3
+    },
     listItem: {
         padding: 20,
         borderBottomWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#ccc',
     },
     author: {
         fontWeight: 'bold'
     },
     imgStyle: {
+        flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
-        width: 140,
-        height: 140
+        justifyContent: 'center'
     }
 });

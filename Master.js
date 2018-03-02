@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator, FlatList, Image } from 'react-native';
 
 export default class Master extends Component {
     constructor(props) {
@@ -42,7 +42,10 @@ export default class Master extends Component {
             <View>
                 <FlatList
                     data={this.state.posts}
-                    renderItem={({ item }) => <Text style={styles.listItem} onPress={() => navigate('Detail', { id: item.data.id, img: item.data.thumbnail })}>{item.data.title}</Text>}
+                    renderItem={({ item }) => <Text style={styles.listItem} onPress={() => navigate('Detail', { id: item.data.id, img: item.data.thumbnail, title: item.data.title })}>
+                        <Image source={{ uri: item.data.thumbnail }} style={styles.imgStyle} />
+                        {item.data.title}
+                    </Text>}
                     keyExtractor={(post, index) => index}
                 />
             </View>
@@ -54,6 +57,13 @@ const styles = StyleSheet.create({
     listItem: {
         padding: 20,
         borderBottomWidth: 1,
-        borderColor: '#ccc'
+        borderColor: '#ccc',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+    imgStyle: {
+        height: 60,
+        width: 60
+    }
 });
