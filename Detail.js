@@ -39,8 +39,8 @@ export default class Master extends Component {
 
         if (this.state.isLoading) {
             return (
-                <View>
-                    <ActivityIndicator />
+                <View style={styles.loading}>
+                    <ActivityIndicator color='orangered' size='large' />
                 </View>
             );
         }
@@ -85,5 +85,10 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
